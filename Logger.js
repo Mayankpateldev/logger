@@ -7,7 +7,7 @@ const { createLogger, format, transports } = require('winston');
 const { combine, timestamp, label, printf } = format;
 var options = {
   file: {
-    filename: `/home/ubuntu/oms.log`,
+    filename: `/home/ubuntu/logger.log`,
     handleExceptions: true,
     json: false,
     maxsize: 10242880, // 10MB
@@ -25,7 +25,7 @@ var options = {
 
 if(app.NODE_ENV == 'development') {
   options.console.level = 'debug';
-  options.file.filename = './oms.log';
+  options.file.filename = './logger.log';
 }
 
 const myFormat = printf(info => {
@@ -128,17 +128,4 @@ Object.defineProperty(global, '__parent_line_logger', {
     return get_parent_line(3)
   }
 });
-
-
-// To Test logfilename and line number implementation
-// console.error("console error");
-// console.log("console log");
-// console.info("console info");
-// console.debug("console debug");
-// console.warn("console warn");
-//
-// Logger.error("error", {});
-// Logger.info("info", {file: __filename});
-// Logger.debug("debug", {file: __filename});
-// Logger.warn("warn", {file: __filename});
 
