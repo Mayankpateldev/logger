@@ -12,7 +12,7 @@ const ENV = process.env;
 
 const LOG_DIR = ENV.LOG_DIR ? ENV.LOG_DIR : '/home/ubuntu/logs';
 const JSON_DUMP_DIR = ENV.JSON_DUMP_DIR ? ENV.JSON_DUMP_DIR : '/home/ubuntu/json_dumps';
-const LOG_FILE_NAME = 'omsapi.%DATE%';
+const LOG_FILE_NAME = 'loggerapi.%DATE%';
 const ENABLE_FILE_LOGS = true;
 const USE_JSON_FILE_LOGGING = false;
 const ENABLE_CONSOLE_LOGS = true;
@@ -116,7 +116,7 @@ function get_parent_line(level) {
     return "";
   } else {
     var split_by = "";
-    split_by = (reg_build_folder.test(line)) ? line.match(reg_build_folder)[0] : 'oms';
+    split_by = (reg_build_folder.test(line)) ? line.match(reg_build_folder)[0] : 'logger';
     var split_hosting_dir = line.split('/' + split_by + '/');
     if (split_hosting_dir.length > 1) {
       return split_hosting_dir[split_hosting_dir.length - 1];
@@ -199,37 +199,6 @@ process.on('message', function (packet) {
   }
 });
 //// to update the loglevel in run time use the code below
-
-
-// --------- pm2-call.js ---------
-//
-// var pm2 = require('pm2');
-// pm2.connect(function() {
-//   pm2.list(function (err, processlist) {
-//     processlist.forEach(function (pm2_process) {
-//       pm2.sendDataToProcessId({
-//         type : 'update:loglevel',
-//         data : {
-//           level: 'warn'
-//         },
-//         id   : pm2_process.pm_id
-//       }, function(err, res) {
-//       });
-//     })
-//   });
-// });
-//
-// Then run
-// node pm2-call.js
-
-
-/// to test the logger, enter the code in server/server.js in app.start function
-// var __logger  = require('./logger/new_logger');
-// setInterval(function () {
-//   __logger.info('some logging');
-//   __logger.error('some error');
-// }, 2000);
-// __logger.debug('Browse your REST API at', [baseUrl, explorerPath]);
 
 
 module.exports = export_logger;
